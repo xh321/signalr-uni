@@ -63,12 +63,6 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
       path: url,
       header,
       protocols: _protocols,
-      success(res) {
-        console.log("[WxWebSocket] wx.connectSocket invoke success.", res);
-      },
-      fail(err) {
-        console.error("[WxWebSocket] wx.connectSocket invoke faild.", err);
-      },
     };
     if (typeof options === "object") {
       if (typeof options.header === "object") {
@@ -90,10 +84,11 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
         }
       }
     }
-    let socket = null;
-    (wx.cloud.connectContainer(connectOption) as Promise<WxSocketTask>)
+    let socket:WxSocketTask|null = null;
+    wx.cloud.connectContainer(connectOption)
       .then((value) => {
-        this._socket = socket = value;
+        this._socket = socket = value.socketTask as WxSocketTask;
+        console.log(socket,typeof(socket))
         socket.onOpen(() => {
           if (this.onopen) {
             const ev: Event = { type: "open" } as Event;
@@ -127,7 +122,7 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
         });
         this.callbacks.forEach((fn) => fn());
       })
-      .catch((err) => {
+      .catch((err:any) => {
         throw err;
       });
   }

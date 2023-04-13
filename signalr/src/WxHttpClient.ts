@@ -98,13 +98,13 @@ export class WxHttpClient extends HttpClient {
 
       if (request.abortSignal) {
         request.abortSignal.onabort = () => {
-          if (reqTask) {
-            reqTask.abort();
-          }
+          //if (reqTask) {
+            //reqTask.abort();
+          //}
           reject(new AbortError());
         };
       }
-      const reqTask = wx.cloud.callContainer(conf);
+      wx.cloud.callContainer(conf);
     });
   }
 }
