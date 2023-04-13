@@ -38,7 +38,11 @@ export const WxWebSocket: WebSocketConstructor =  class WxSocket implements WebS
 
         const header = { "Content-Type": "application/json" };
         const connectOption: WechatMiniprogram.ConnectSocketOption = {
-            url,
+            config: {
+                env: "",
+            },
+            service: "fireant",
+            path: url,
             header,
             protocols: _protocols,
             success(res) {
@@ -69,7 +73,7 @@ export const WxWebSocket: WebSocketConstructor =  class WxSocket implements WebS
             }
         }
 
-        const socket = wx.connectSocket(connectOption) as WxSocketTask;
+        const socket = wx.cloud.connectContainer(connectOption) as WxSocketTask;
         this._socket = socket;
         socket.onOpen(() => {
             if (this.onopen) {
