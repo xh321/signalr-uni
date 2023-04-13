@@ -42,7 +42,7 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
   // tslint:disable-next-line:variable-name
   private _url: string;
   // tslint:disable-next-line:variable-name
-  private _socket: WxSocketTask;
+  private _socket?: WxSocketTask | null;
 
   constructor(url: string, protocols?: string | string[], options?: any) {
     this._url = url;
@@ -171,7 +171,7 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
 
   public close(code?: number, reason?: string): void {
     const _close = () => {
-      this._socket.close({ code, reason });
+      this._socket!.close({ code, reason });
     };
     if (!this._socket) {
       // 添加到事件队列
@@ -184,7 +184,7 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
   public send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void {
     const _send = () => {
       data = data as string | ArrayBuffer;
-      this._socket.send({ data });
+      this._socket!.send({ data });
     };
     if (!this._socket) {
       // 添加到事件队列
