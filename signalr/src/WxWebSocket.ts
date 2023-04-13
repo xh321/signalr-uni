@@ -24,7 +24,7 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
     return "";
   }
   public get readyState() {
-    return this._socket.readyState;
+    return this._socket ? this._socket.readyState : this.CONNECTING;
   }
   public get CLOSED() {
     return 3;
