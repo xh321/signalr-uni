@@ -57,7 +57,7 @@ export const WxWebSocket: WebSocketConstructor = class WxSocket
     const header = { "Content-Type": "application/json" };
     const connectOption: WechatMiniprogram.ConnectSocketOption = {
       config: {
-        env: "",
+        env: "develop-1g1yu3edff1b0c4e",
       },
       service: "fireant",
       path: url,

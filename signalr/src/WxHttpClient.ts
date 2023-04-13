@@ -38,7 +38,7 @@ export class WxHttpClient extends HttpClient {
     return new Promise<HttpResponse>((resolve, reject) => {
       const conf: WechatMiniprogram.RequestOption = {
         config: {
-          env: "",
+          env: "develop-1g1yu3edff1b0c4e",
         },
         path: request.url!,
         data: request.content,
